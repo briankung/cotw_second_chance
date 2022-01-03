@@ -1,0 +1,3 @@
+[submodule "this-week-in-rust"]
+	path = this-week-in-rust
+	url = git@github.com:rust-lang/this-week-in-rust.git
