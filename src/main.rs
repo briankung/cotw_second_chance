@@ -4,7 +4,7 @@ mod post;
 mod twir;
 
 use crate::post::Post;
-use crate::twir::crates_of_the_week;
+use crate::twir::cotw_urls;
 
 use std::collections::HashMap;
 use std::fs::File;
@@ -46,13 +46,13 @@ async fn main() -> Result<(), BoxedError> {
     let mut sorted: Vec<_> = url_scores.into_iter().collect();
     sorted.sort_by_key(|(_, likes)| -likes);
 
-    // println!("likes,url");
+    let cotw_urls = cotw_urls();
 
-    // for (url, likes) in sorted.iter() {
-    //     println!("{},{}", likes, url);
-    // }
+    println!("likes,url");
 
-    crates_of_the_week();
+    for (url, likes) in sorted.iter().filter(|(url, _likes)| !cotw_urls.contains(url)) {
+        println!("{},{}", likes, url);
+    }
 
     Ok(())
 }

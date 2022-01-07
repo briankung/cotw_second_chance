@@ -1,9 +1,15 @@
-use pulldown_cmark::Parser;
+use std::collections::HashSet;
 use std::ffi::OsStr;
 use std::fs;
 use std::path::PathBuf;
 
-const COTW_HEADER: &str = "# crate of the week";
+use pulldown_cmark::CowStr::Borrowed;
+use pulldown_cmark::Event::End;
+use pulldown_cmark::LinkType::Inline;
+use pulldown_cmark::Parser;
+use pulldown_cmark::Tag::Link;
+
+const COTW_HEADER: &str = "# crate";
 
 fn twir_editions() -> impl Iterator<Item = PathBuf> {
     let dirs = fs::read_dir("this-week-in-rust/content/").expect("the directory");
@@ -23,8 +29,8 @@ fn twir_editions() -> impl Iterator<Item = PathBuf> {
     })
 }
 
-pub fn crates_of_the_week() -> Vec<String> {
-    let result = vec![];
+pub fn cotw_urls() -> HashSet<String> {
+    let mut cotw_urls = HashSet::new();
     let header_length = COTW_HEADER.len();
 
     let cotw = twir_editions().filter_map(|path| {
@@ -46,10 +52,13 @@ pub fn crates_of_the_week() -> Vec<String> {
     for content in cotw {
         let parser = Parser::new(&content);
         for event in parser {
-            println!("{:?}", event);
+            if let End(Link(Inline, Borrowed(url), Borrowed(""))) = event {
+                if !url.contains("/users") {
+                    cotw_urls.insert(url.to_owned());
+                }
+            }
         }
-        println!("\n\n");
     }
 
-    result
+    cotw_urls
 }
