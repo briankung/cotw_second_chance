@@ -31,12 +31,13 @@ async fn main() -> Result<(), BoxedError> {
             .filter(|post| post.like_count().is_positive() && !post.link_counts.is_empty());
 
         for post in week {
-            if let Some(most_clicked) = post.link_counts.iter().max_by_key(|lc| lc.clicks) {
-                let most_clicked_url = most_clicked.url.clone();
-                let likes = post.like_count();
+            let likes = post.like_count();
+
+            for link_count in post.link_counts.iter() {
+                let url = link_count.url.clone();
 
                 url_scores
-                    .entry(most_clicked_url.to_lowercase())
+                    .entry(url.to_lowercase())
                     .and_modify(|s| *s += likes)
                     .or_insert(likes);
             }
@@ -50,7 +51,10 @@ async fn main() -> Result<(), BoxedError> {
 
     println!("likes,url");
 
-    for (url, likes) in sorted.iter().filter(|(url, _likes)| !cotw_urls.contains(url)) {
+    for (url, likes) in sorted
+        .iter()
+        .filter(|(url, _)| !cotw_urls.contains(url))
+    {
         println!("{},{}", likes, url);
     }
 
