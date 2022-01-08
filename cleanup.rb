@@ -1,5 +1,5 @@
 def search(term)
-  `rg "((crate.+week)|(week.+crate)).+\\b#{term}\\b" ./this-week-in-rust/content/`
+  `rg -i "((crate.+week)|(week.+crate)).+\\b#{term}\\b" ./this-week-in-rust/content/`
 end
 
 filtered = File.open('output.csv').each_line.select do |line|
