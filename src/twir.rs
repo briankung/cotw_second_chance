@@ -31,25 +31,8 @@ fn twir_editions() -> impl Iterator<Item = PathBuf> {
 
 pub fn cotw_urls() -> HashSet<String> {
     let mut cotw_urls = HashSet::new();
-    let header_length = COTW_HEADER.len();
 
-    let cotw = twir_editions().filter_map(|path| {
-        let content = fs::read_to_string(path).ok()?;
-        let lowercase = content.to_lowercase();
-        let start = lowercase.find(COTW_HEADER).map(|i| i + header_length)?;
-        let length = lowercase[start..].find('#');
-        let end = if let Some(length) = length {
-            start + length
-        } else {
-            content.len()
-        };
-
-        lowercase
-            .contains(COTW_HEADER)
-            .then(|| content[start..end].to_owned())
-    });
-
-    for content in cotw {
+    for content in cotw_sections() {
         let parser = Parser::new(&content);
         for event in parser {
             if let End(Link(Inline, Borrowed(url), Borrowed(""))) = event {
@@ -61,4 +44,22 @@ pub fn cotw_urls() -> HashSet<String> {
     }
 
     cotw_urls
+}
+
+pub fn cotw_sections() -> impl Iterator<Item = String> {
+    twir_editions().filter_map(|path| {
+        let content = fs::read_to_string(path).ok()?;
+        let lowercase = content.to_lowercase();
+        let start = lowercase.find(COTW_HEADER).map(|i| i + COTW_HEADER.len())?;
+        let length = lowercase[start..].find('#');
+        let end = if let Some(length) = length {
+            start + length
+        } else {
+            content.len()
+        };
+
+        lowercase
+            .contains(COTW_HEADER)
+            .then(|| content[start..end].to_owned())
+    })
 }

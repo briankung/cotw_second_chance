@@ -51,10 +51,7 @@ async fn main() -> Result<(), BoxedError> {
 
     println!("likes,url");
 
-    for (url, likes) in sorted
-        .iter()
-        .filter(|(url, _)| !cotw_urls.contains(url))
-    {
+    for (url, likes) in sorted.iter().filter(|(url, _)| !cotw_urls.contains(url)) {
         println!("{},{}", likes, url);
     }
 
