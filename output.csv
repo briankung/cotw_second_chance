@@ -1,16 +1,10 @@
 likes,url
-14,https://gist.github.com/est31/3d9e880be746c3a443c699d9ff1888d2
 13,https://github.com/tomaka/glutin
-13,https://github.com/pistondevelopers/glutin_window
-13,https://github.com/pistondevelopers/glium_graphics
-13,https://github.com/kud1ing/awesome-rust
 12,https://github.com/tomaka/redshirt
-12,https://github.com/rust-lang/rust/issues/29497
 12,https://github.com/rdambrosio016/rust-cuda
 12,https://github.com/kornelski/deunicode
 12,https://github.com/chowdhurya/rust-unidecode
 11,https://github.com/servo/rust-smallvec
-11,https://github.com/ockam-network/ockam/tree/develop/documentation/use-cases/end-to-end-encryption-with-rust
 11,https://crates.io/crates/exonum
 10,https://lib.rs/crates/async-stream
 10,https://github.com/matthiaskrgr/cargo-cache
@@ -41,13 +35,10 @@ likes,url
 7,https://crates.io/crates/csv
 6,https://lib.rs/thiserror
 6,https://github.com/samsieber/tco
-6,https://github.com/rust-lang/cargo/issues/5500
-6,https://github.com/rust-fuzz/trophy-case
 6,https://github.com/ron-rs/ron
 6,https://github.com/nushell/nushell
 6,https://github.com/mikaelmello/inquire
 6,https://github.com/mehcode/config-rs
-6,https://github.com/kbknapp/clap-rs/wiki/faq
 6,https://github.com/embarkstudios/cargo-deny
 6,https://github.com/emabee/flexi_logger
 6,https://github.com/amrali/waver
@@ -99,12 +90,10 @@ likes,url
 4,https://github.com/vitiral/rst
 4,https://github.com/theotherphil/imagecli
 4,https://github.com/teenjuna/prae
-4,https://github.com/strohel/goout-calendar/commit/fa449379207713aaf5a79a6456948f224342b9af
 4,https://github.com/slide-rs/specs
 4,https://github.com/sigmasd/irust
 4,https://github.com/sfackler/rust-phf
 4,https://github.com/rustpython/rustpython
-4,https://github.com/rust-lang/rust-clippy/issues/4491
 4,https://github.com/rushmorem/publicsuffix
 4,https://github.com/railgun-rs/actix-raft
 4,https://github.com/pcwalton/font-kit
@@ -118,7 +107,6 @@ likes,url
 4,https://github.com/jrmuizel/raqote
 4,https://github.com/jackmott/rust-simd-noise
 4,https://github.com/inejge/ldap3
-4,https://github.com/hecrj/iced/pull/253
 4,https://github.com/hecrj
 4,https://github.com/fitzgen/state_machine_future
 4,https://github.com/filcuc/dotherside
@@ -126,7 +114,6 @@ likes,url
 4,https://github.com/facebookincubator/cargo-guppy
 4,https://github.com/dylanede/cassowary-rs
 4,https://github.com/coder543/libasm
-4,https://github.com/cmr/this-week-in-rust/issues/939
 4,https://github.com/canop/termimad
 4,https://github.com/alexcrichton/coz-rs
 4,https://docs.rs/guppy/
@@ -137,7 +124,6 @@ likes,url
 4,https://crates.io/crates/probe-run
 4,https://crates.io/crates/prettytable-rs
 4,https://crates.io/crates/pnet
-4,https://crates.io/crates/pkg-config/reverse_dependencies
 4,https://crates.io/crates/optional
 4,https://crates.io/crates/oath2
 4,https://crates.io/crates/oath
@@ -156,10 +142,6 @@ likes,url
 3,https://github.com/sharksforarms/deku
 3,https://github.com/servo/rust-url
 3,https://github.com/rustscan/rustscan
-3,https://github.com/ruma/ruma/tree/main/crates/ruma-events-macros
-3,https://github.com/ruma/ruma/tree/main/crates/ruma-events
-3,https://github.com/ruma/ruma/tree/main/crates/ruma-client-api
-3,https://github.com/ruma/ruma/tree/main/crates/ruma-api-macros
 3,https://github.com/ruma/ruma
 3,https://github.com/rreverser/cow-utils-rs
 3,https://github.com/rexagon/opg
@@ -171,7 +153,6 @@ likes,url
 3,https://github.com/nox/rayon_croissant
 3,https://github.com/nabijaczleweli/cargo-update
 3,https://github.com/maciejhirsz/json-rust
-3,https://github.com/lukaskalbertodt/drencher/commit/c87280fd8ccfb90ac70967d1266f631c5ab17af2
 3,https://github.com/lotabout/skim
 3,https://github.com/jeltef/derive_more
 3,https://github.com/greyblake/whatlang-rs
@@ -212,7 +193,6 @@ likes,url
 2,https://lib.rs/crates/listenfd
 2,https://lib.rs/crates/double-checked-cell-async
 2,https://gitlab.com/williamyaoh/shrinkwraprs
-2,https://github.com/webassembly/wasi/pull/160
 2,https://github.com/vorner/contrie/
 2,https://github.com/turnage/immense
 2,https://github.com/termhn/ultraviolet
@@ -304,8 +284,6 @@ likes,url
 2,https://crates.io/crates/du-dust
 2,https://crates.io/crates/cassette
 2,https://crates.io/crates/bins
-1,https://lukaslueg.github.io/macro_railroad_wasm_demo/
-1,https://gitlab.com/r-iendo/mathew
 1,https://github.com/zhihu/rucene
 1,https://github.com/zesterer/pollster
 1,https://github.com/yoric/yaiouom
@@ -330,7 +308,6 @@ likes,url
 1,https://github.com/senderista/sorted-vec
 1,https://github.com/sassman/t-rec-rs
 1,https://github.com/sajattack/discourse-tui
-1,https://github.com/rust-lang/rust/issues/35118
 1,https://github.com/ritchie46/polars
 1,https://github.com/razrfalcon/tiny-skia
 1,https://github.com/pumpkindb/pumpkindb
@@ -357,7 +334,6 @@ likes,url
 1,https://github.com/kyren/luster
 1,https://github.com/kvark/froggy
 1,https://github.com/kushagra-0801/fn-compose
-1,https://github.com/kevinmehall/rust-peg/issues/153
 1,https://github.com/kerollmops/sdset
 1,https://github.com/kdy1/rweb
 1,https://github.com/kardeiz/funtime
