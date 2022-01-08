@@ -1,16 +1,17 @@
 mod actions_summary;
+mod base_url;
 mod link_count;
 mod post;
 mod twir;
-mod base_url;
 
-use crate::post::Post;
-use crate::twir::cotw_urls;
 use crate::base_url::BaseUrl;
+use crate::post::Post;
+use crate::twir::cotw_sections;
+use regex::Regex;
 
+use rayon::prelude::*;
 use std::collections::HashMap;
 use std::fs::File;
-
 use std::io::copy;
 use std::{fs, path::Path};
 
@@ -23,42 +24,76 @@ async fn main() -> Result<(), BoxedError> {
     fetch_data().await?;
 
     let posts = parse_data()?;
-    let mut weeks = posts_by_week(&posts);
-    let mut url_scores = HashMap::new();
+    let sorted: Vec<(String, i64)> = extract_urls_likes(posts)
+        .into_iter()
+        .filter(|(url, _likes)| {
+            url.contains("github.com")
+                || url.contains("github.io")
+                || url.contains("gitlab.com")
+                || url.contains("crates.io")
+                || url.contains("lib.rs")
+                || url.contains("docs.rs")
+        })
+        .collect();
 
-    for week in weeks.iter_mut() {
-        week.sort_by_cached_key(|p| -p.like_count());
-        let week = week
-            .iter()
-            .filter(|post| post.like_count().is_positive() && !post.link_counts.is_empty());
+    // let cotw_urls = cotw_urls();
 
-        for post in week {
-            let likes = post.like_count();
+    let re = Regex::new(r#"[\w_-]+"#)?;
 
-            for link_count in post.link_counts.iter() {
-                let url = link_count.url.clone();
-                let url = url.base_url();
+    let slugs: HashMap<String, &str> = sorted
+        .iter()
+        .map(|(url, _)| {
+            let slug = re.find_iter(url).last().map(|c| c.as_str()).unwrap();
+            (url.clone(), slug)
+        })
+        .filter(|(_url, slug)| slug.len() > 2)
+        .collect();
 
-                url_scores
-                    .entry(url.to_lowercase())
-                    .and_modify(|s| *s += likes)
-                    .or_insert(likes);
-            }
-        }
-    }
-
-    let mut sorted: Vec<_> = url_scores.into_iter().collect();
-    sorted.sort_by_key(|(_, likes)| -likes);
-
-    let cotw_urls = cotw_urls();
+    let cotw_content: String = cotw_sections().collect();
 
     println!("likes,url");
 
-    for (url, likes) in sorted.iter().filter(|(url, _)| !cotw_urls.contains(url)) {
-        println!("{},{}", likes, url);
-    }
+    sorted
+        .par_iter()
+        .filter(|(url, _)| {
+            if let Some(slug) = slugs.get(url) {
+                let query = &format!(r"(?i)((crate.+week)|(week.+crate)).+\b{}\b", slug)[..];
+                let re = Regex::new(query).unwrap();
+                !re.is_match(&cotw_content)
+            } else {
+                false
+            }
+        })
+        .for_each(|(sorted_url, likes)| {
+            println!("{},{}", likes, sorted_url);
+        });
 
     Ok(())
+}
+
+// TODO: This is unnecessarily complicated due to (initially) grouping posts by week.
+// Keep `posts_by_week` but don't use it in this function.
+fn extract_urls_likes(posts: Vec<Post>) -> Vec<(String, i64)> {
+    let mut url_scores = HashMap::new();
+    let posts = posts
+        .iter()
+        .filter(|post| post.like_count().is_positive() && !post.link_counts.is_empty());
+
+    for post in posts {
+        let likes = post.like_count();
+
+        for link_count in post.link_counts.iter() {
+            let url = link_count.url.clone();
+            let url = url.base_url();
+
+            url_scores
+                .entry(url.to_lowercase())
+                .and_modify(|s| *s += likes)
+                .or_insert(likes);
+        }
+    }
+
+    url_scores.into_iter().collect()
 }
 
 async fn fetch_data() -> Result<(), BoxedError> {
