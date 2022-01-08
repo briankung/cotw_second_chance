@@ -6,7 +6,7 @@
 
 # Usage
 
-NOTE: I manually searched for and removed crates that had been nominated Crate of the Week for links that received 5 or more likes.
+NOTE: I manually searched for and removed crates that had been nominated Crate of the Week for links that received 5 or more likes in `cleaned.csv`. The rest of the results were filtered with my Ruby script, with somewhat dubious results.
 
 NOTE THE SECOND: the `output.csv` and `cleaned.csv` files are out of date with the current code.
 
