@@ -2,9 +2,11 @@ mod actions_summary;
 mod link_count;
 mod post;
 mod twir;
+mod base_url;
 
 use crate::post::Post;
 use crate::twir::cotw_urls;
+use crate::base_url::BaseUrl;
 
 use std::collections::HashMap;
 use std::fs::File;
@@ -35,6 +37,7 @@ async fn main() -> Result<(), BoxedError> {
 
             for link_count in post.link_counts.iter() {
                 let url = link_count.url.clone();
+                let url = url.base_url();
 
                 url_scores
                     .entry(url.to_lowercase())

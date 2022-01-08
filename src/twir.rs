@@ -9,6 +9,8 @@ use pulldown_cmark::LinkType::Inline;
 use pulldown_cmark::Parser;
 use pulldown_cmark::Tag::Link;
 
+use crate::base_url::BaseUrl;
+
 const COTW_HEADER: &str = "# crate";
 
 fn twir_editions() -> impl Iterator<Item = PathBuf> {
@@ -37,6 +39,8 @@ pub fn cotw_urls() -> HashSet<String> {
         for event in parser {
             if let End(Link(Inline, Borrowed(url), Borrowed(""))) = event {
                 if !url.contains("/users") {
+                    let url = url.base_url();
+
                     cotw_urls.insert(url.to_owned());
                 }
             }
